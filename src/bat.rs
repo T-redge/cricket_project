@@ -40,6 +40,14 @@ pub mod bat {
             self.runs_scored += 6;
             self.run_profile.add_run_six();
         }
+            //Print struct variable functions
+        pub fn print_bp(&self) {
+            println!("---Batter Profile---");
+            print!("Name: {} ", self.name);
+            print!("Runs: {} ", self.runs_scored);
+            println!("Balls: {}", self.balls_faced);
+            self.run_profile.print_rp();
+        }
     }
     struct RunProfile {
         dot_balls: u32,
@@ -69,6 +77,15 @@ pub mod bat {
         fn add_run_six(&mut self) {
             self.runs_six += 1;
         }
+        fn print_rp(&self) {
+            println!("--Run Profile--");
+            print!("Dot's: {} |", self.dot_balls);
+            print!(" 1's: {} |", self.runs_one);
+            print!(" 2's: {} |", self.runs_two);
+            print!(" 3's: {} |", self.runs_three);
+            print!(" 4's: {} |", self.runs_four);
+            println!(" 6's: {} |", self.runs_six);
+        }
         
     }
     
@@ -93,24 +110,5 @@ pub mod bat {
             runs_six: 0,
         };
         tmp_rp
-    }
-
-    //Print struct variable functions
-    pub fn print_bp(bp: BatterProfile) {
-        println!("---Batter Profile---");
-        println!("Name: {}", bp.name);
-        println!("Runs: {}", bp.runs_scored);
-        println!("Balls: {}", bp.balls_faced);
-        print_rp(bp.run_profile);
-        
-    }
-    fn print_rp(rp: RunProfile) {
-        println!("--Run Profile--");
-        println!("Dot's: {}", rp.dot_balls);
-        println!("1's: {}", rp.runs_one);
-        println!("2's: {}", rp.runs_two);
-        println!("3's: {}", rp.runs_three);
-        println!("4's: {}", rp.runs_four);
-        println!("6's: {}", rp.runs_six);
     }
 }
