@@ -36,4 +36,10 @@ pub mod input {
             return tmp_num;
         }
     }
+    //Returns name from stdin
+    pub fn get_name() -> String {
+        println!("Input player name: ");
+        let tmp_name = get_input();
+        tmp_name
+    }
 }

@@ -1,12 +1,25 @@
 pub mod bat {
+    use crate::over::input::input::get_name;
+
     //Structs
     pub struct BatterProfile {
         name: String,
         runs_scored: u32,
         balls_faced: u32,
+        on_strike: bool,
         run_profile: RunProfile,
     }
     impl BatterProfile {
+        //Init Function
+        pub fn init_batter(on_strike: bool) -> Self {
+            Self {
+                name: get_name(),
+                runs_scored: 0,
+                balls_faced: 0,
+                on_strike,
+                run_profile: RunProfile::init_run_profile(),
+            }
+        }
         //Adds to balls faced
         pub fn ball_faced(&mut self) {
             self.balls_faced += 1;
@@ -40,6 +53,14 @@ pub mod bat {
             self.runs_scored += 6;
             self.run_profile.add_run_six();
         }
+        pub fn check_on_strike(&self) -> bool {
+            if self.on_strike {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
             //Print struct variable functions
         pub fn print_bp(&self) {
             println!("---Batter Profile---");
@@ -58,6 +79,16 @@ pub mod bat {
         runs_six: u32,
     }
     impl RunProfile {
+        fn init_run_profile() -> RunProfile {
+            RunProfile {
+                dot_balls: 0,
+                runs_one: 0,
+                runs_two: 0,
+                runs_three: 0,
+                runs_four: 0,
+                runs_six: 0,
+            }
+        }
         //Adds one to type of run scored
         fn add_dot(&mut self) {
             self.dot_balls += 1;
@@ -86,29 +117,5 @@ pub mod bat {
             print!(" 4's: {} |", self.runs_four);
             println!(" 6's: {} |", self.runs_six);
         }
-        
-    }
-    
-    //Init Functions
-    pub fn init_batter() -> BatterProfile {
-        let tmp_b = BatterProfile {
-
-            name: String::from("Alex"),
-            runs_scored: 0,
-            balls_faced: 0,
-            run_profile: init_run_profile(),  
-        };
-        tmp_b
-    }
-    fn init_run_profile() -> RunProfile {
-        let tmp_rp = RunProfile {
-            dot_balls: 0,
-            runs_one: 0,
-            runs_two: 0,
-            runs_three: 0,
-            runs_four: 0,
-            runs_six: 0,
-        };
-        tmp_rp
     }
 }

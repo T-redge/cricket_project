@@ -10,16 +10,33 @@ pub mod over {
         ball_record: std::vec::Vec<char>,
     }
     impl Over {
+         //Init over
+        pub fn init_over() -> Over {
+            Over {
+                balls_bowled: 0,
+                ball_record: vec![],
+            }
+        }    
         //--- Bowls atleast 6 balls to bat ---//
-        pub fn bowl_over(&mut self, bat: &mut crate::bat::bat::BatterProfile) {
+        pub fn bowl_over(&mut self, 
+            bat_one: &mut crate::bat::bat::BatterProfile, 
+            bat_two: &mut crate::bat::bat::BatterProfile) 
+        {
             while self.balls_bowled < 6 {
-                bat.ball_faced();
-                self.check_ball_event(bat);
+                if bat_one.check_on_strike() {
+                    bat_one.ball_faced();
+                    self.check_ball_event(bat_one);
+                }
+                if bat_two.check_on_strike() {
+                    bat_one.ball_faced();
+                    self.check_ball_event(bat_two);
+                }
                 self.balls_bowled += 1;
             }
             println!("Over Completed.");
             self.print_over();
-            bat.print_bp();
+            bat_one.print_bp();
+            bat_two.print_bp();
         }
 
         //--- Add to balls_bowled counter ---//
@@ -190,14 +207,4 @@ pub mod over {
             self.ball_record.push(event);
         }
     }
-
-    //Init over
-    pub fn init_over() -> Over {
-        let tmp_over = Over {
-            balls_bowled: 0,
-            ball_record: vec![],
-        };
-        tmp_over
-    }    
-    
 }
