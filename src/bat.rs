@@ -1,19 +1,17 @@
 pub mod bat {
-    use crate::over::input::input::get_name;
-
     //Structs
     pub struct BatterProfile {
         name: String,
         runs_scored: u32,
         balls_faced: u32,
-        on_strike: bool,
+        pub on_strike: bool,
         run_profile: RunProfile,
     }
     impl BatterProfile {
         //Init Function
         pub fn init_batter(on_strike: bool) -> Self {
             Self {
-                name: get_name(),
+                name: Self::get_name(),
                 runs_scored: 0,
                 balls_faced: 0,
                 on_strike,
@@ -53,6 +51,7 @@ pub mod bat {
             self.runs_scored += 6;
             self.run_profile.add_run_six();
         }
+        //Returns true if on strike
         pub fn check_on_strike(&self) -> bool {
             if self.on_strike {
                 return true;
@@ -61,7 +60,16 @@ pub mod bat {
                 return false;
             }
         }
-            //Print struct variable functions
+        //Changes on_strike variable to true or false
+        pub fn change_strike(&mut self) {
+            if self.on_strike {
+                self.on_strike = false;
+            }
+            else {
+                self.on_strike = true;
+            }
+        }
+        //Print struct variable functions
         pub fn print_bp(&self) {
             println!("---Batter Profile---");
             print!("Name: {} ", self.name);
@@ -69,7 +77,52 @@ pub mod bat {
             println!("Balls: {}", self.balls_faced);
             self.run_profile.print_rp();
         }
+        //Gets string from input
+        pub fn get_input() -> String {
+            let mut tmp = String::new();
+            std::io::stdin()
+            .read_line(&mut tmp)
+            .expect("Failed to readline");
+        tmp
+        }
+        //Returns char from stdin
+        pub fn get_char() -> char {
+            loop {
+                let tmp_c = Self::get_input();
+                
+                let tmp_c: char = match tmp_c.trim().parse() {
+                    Ok(char) => char,
+                    Err(_) => {
+                        println!("Wrong Input! Try again");
+                        continue;
+                    },  
+                };
+                return tmp_c;
+            }
+        }
+        //returns num from string
+        pub fn get_num() -> u32 {
+            loop {
+                let tmp_num = Self::get_input();
+                
+                let tmp_num: u32 = match tmp_num.trim().parse() {
+                    Ok(num) => num,
+                    Err(_) => {
+                        println!("Wrong input! Try again");
+                        continue;
+                    },
+                };
+                return tmp_num;
+            }
+        }
+        //Returns name from stdin
+        pub fn get_name() -> String {
+            println!("Input player name: ");
+            let tmp_name = Self::get_input();
+            tmp_name
+        }
     }
+   
     struct RunProfile {
         dot_balls: u32,
         runs_one: u32,
@@ -118,4 +171,5 @@ pub mod bat {
             println!(" 6's: {} |", self.runs_six);
         }
     }
+    
 }
