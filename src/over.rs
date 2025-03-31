@@ -19,7 +19,8 @@ pub mod over {
         //--- Bowls atleast 6 balls to bat ---//
         pub fn bowl_over(&mut self, 
             bat_one: &mut crate::bat::bat::BatterProfile, 
-            bat_two: &mut crate::bat::bat::BatterProfile) 
+            bat_two: &mut crate::bat::bat::BatterProfile,
+            bowler: &mut crate::bowling::bowling::BowlerProfile) 
         {
             while self.balls_bowled < 6 {
                 if bat_one.check_on_strike() {
@@ -37,10 +38,7 @@ pub mod over {
                     self.reset_strike_flag();
                 }
             }
-            println!("Over Completed.");
-            self.print_over();
-            bat_one.print_bp();
-            bat_two.print_bp();
+            self.print_over_stats(bat_one, bat_two, bowler);
         }
          //--- Add to balls_bowled counter ---//
         pub fn ball_bowled(&mut self) {
@@ -213,5 +211,19 @@ pub mod over {
         pub fn push_to_ball_record(&mut self, event: char) {
             self.ball_record.push(event);
         }
+        //Prints over info
+        pub fn print_over_stats(
+            &self, 
+            bat_one: &crate::bat::bat::BatterProfile,
+            bat_two: &crate::bat::bat::BatterProfile,
+            bowler: &crate::bowling::bowling::BowlerProfile) {
+                println!("Over Completed.");
+                self.print_over();
+                println!("---Batter Profile---");
+                bat_one.print_bp();
+                bat_two.print_bp();
+                println!("---Bowler Profile---");
+                bowler.print_bowler_info();
+            }
     }
 }

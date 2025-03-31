@@ -11,7 +11,7 @@ pub mod bat {
         //Init Function
         pub fn init_batter(on_strike: bool) -> Self {
             Self {
-                name: Self::get_name(),
+                name: Self::get_name().trim().to_string(),
                 runs_scored: 0,
                 balls_faced: 0,
                 on_strike,
@@ -71,10 +71,9 @@ pub mod bat {
         }
         //Print struct variable functions
         pub fn print_bp(&self) {
-            println!("---Batter Profile---");
-            print!("Name: {} ", self.name);
-            print!("Runs: {} ", self.runs_scored);
-            println!("Balls: {}", self.balls_faced);
+            print!("{} ", self.name);
+            print!("( Balls: {} ", self.balls_faced);
+            println!("Runs: {} )", self.runs_scored);
             self.run_profile.print_rp();
         }
         //Gets string from input
@@ -162,7 +161,6 @@ pub mod bat {
             self.runs_six += 1;
         }
         fn print_rp(&self) {
-            println!("--Run Profile--");
             print!("Dot's: {} |", self.dot_balls);
             print!(" 1's: {} |", self.runs_one);
             print!(" 2's: {} |", self.runs_two);
